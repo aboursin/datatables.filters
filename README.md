@@ -2,7 +2,7 @@
 
 This [DataTables] plugin add a filter input on each DataTable columns.
 
-![Alt text](https://cloud.githubusercontent.com/assets/16703873/13043470/9efe16be-d3c8-11e5-8a54-a36b1b975a8a.png)
+![Alt text](https://cloud.githubusercontent.com/assets/16703873/13138028/013df70a-d625-11e5-9cff-867e8fa42ef6.png)
 
 ## Example
 
