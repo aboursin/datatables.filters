@@ -6,8 +6,8 @@
  * range...)
  *
  *  @summary Add a filter input on each DataTable columns
- *  @name DataTables Filters
- *  @author angelo.boursin
+ *  @name DataTables Filters v0.1
+ *  @author [Angelo Boursin] (https://github.com/aboursin/datatables.filters)
  *
  *  @example
  *		$(document).ready(function() {
