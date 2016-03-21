@@ -32,10 +32,24 @@ $.fn.dataTable.Api.register( 'filtersOn()', function () {
 	// Populate the filter header
 	$('#' + id + ' thead th').each( function (index) {
 		var searchable = dataTable.context[0].aoColumns[index].bSearchable;
+		var searchtype = dataTable.context[0].aoColumns[index].searchtype;
 		
 		// Add input only if current column is searchable
 		if(searchable){
-			$('#' + id + ' .filter tr').append($('<th>').append($('<input type="text"/>').addClass('form-control input-sm')));
+			
+			if(searchtype == "select"){
+			
+				// Select input
+				var select = $('<select><option value=""></option></select>').addClass('form-control input-sm');
+				dataTable.column(index).data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="' + d + '">' + d + '</option>' )
+                });
+				
+				$('#' + id + ' .filter tr').append($('<th>').append(select));
+			} else {
+				// Text input
+				$('#' + id + ' .filter tr').append($('<th>').append($('<input type="text"/>').addClass('form-control input-sm')));
+			}
 		} else {
 			$('#' + id + ' .filter tr').append($('<th>'));
 		}
@@ -54,7 +68,7 @@ $.fn.dataTable.Api.register( 'filtersOn()', function () {
     }
     
  	// Filter input event : filter matching column
-	$('#' + id +' .filter input').each( function (index) {
+	$('#' + id +' .filter input, #' + id +' .filter select').each( function (index) {
 		$(this).on( 'keyup change', function () {
 			dataTable.column(index).search(this.value).draw();
 		});
@@ -73,7 +87,7 @@ $.fn.dataTable.Api.register( 'filtersClear()', function () {
 	// Clean filters (only if stateSave)
 	if (state) {
 		console.log("stateSave:true > Clearing filters...");
-		$('#' + id +' .filter input').each( function (index) {
+		$('#' + id +' .filter input, #' + id +' .filter select').each( function (index) {
 			// Clear input value
 			this.value = '';
 			// Clear column filter

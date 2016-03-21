@@ -3,3 +3,9 @@ table .filter tr th input{
 	width : 100%;
 	padding-left : 22px;
 }
+
+table .filter tr th select, table .filter tr th select option{
+	background: #ffffff url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAABkElEQVR42mNoaGhgoASDiejoaHdbW9tWOzu7RhCND8PUxMbGusIN0NXVXcjAwPCfFGxoaDgbbkBqaqqNj49Ppq+vb3xAQEAmkJ0NxKlAnIaOgWqSQWrT0tKs4AY4ODgoiImJHZKTk5sE4ouLiy+VlJS8CKTPAPF5KL4AxGelpKQuANXud3Z2VgIb0NHRwQxiMDExhUOd1w7E+vicD1QbCdLT1NTEBHYB0BAmEM3FxZUEUsDGxhYsLy9vBWS/ZWRk/A2kfwM1/QLS/zg5OZOQ9cCjo729HewSDg6OBmZm5j9KSkqLgRpegTQB8U+QwUC5WqhaJpRoRDIELAG0ZRqSk/+AaKDrpqBrxjAAqoAxOzublZeXdxXU9v/c3NzrgGJsIDmsCQkZV1dXs4DoyMhIV6gB/0BsZDm8BtTW1oLDIioqyhsYgCDn/wWyfZDl8BpQU1MDtiUiIsIfGmX/gQZ4Em0AUBHYn/Hx8SICAgIzgIZ8CwsL80c2HK8B6BiYcayAAagMYtfV1TGSZABQAzMhCwAZSkwRmMS0lAAAAABJRU5ErkJggg==') no-repeat scroll 3px center;
+	width : 100%;
+	padding-left : 22px;
+}
