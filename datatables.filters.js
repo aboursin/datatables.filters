@@ -35,22 +35,23 @@ $.fn.dataTable.Api.register( 'filtersOn()', function () {
 		var searchtype = dataTable.context[0].aoColumns[index].searchtype;
 		
 		// Add input only if current column is searchable
-		if(searchable){
-			
-			if(searchtype == "select"){
-			
-				// Select input
-				var select = $('<select><option value=""></option></select>').addClass('form-control input-sm');
-				dataTable.column(index).data().unique().sort().each( function ( d, j ) {
-                    select.append( '<option value="' + d + '">' + d + '</option>' )
-                });
-				
-				$('#' + id + ' .filter tr').append($('<th>').append(select));
-			} else {
-				// Text input
-				$('#' + id + ' .filter tr').append($('<th>').append($('<input type="text"/>').addClass('form-control input-sm')));
+		if(searchable)
+			switch (searchtype) {
+				case "select":
+					// Select input
+					var select = $('<select><option value=""></option></select>').addClass('form-control input-sm');
+					dataTable.column(index).data().unique().sort().each( function ( d, j ) {
+						select.append( '<option value="' + d + '">' + d + '</option>' )
+					});
+					
+					$('#' + id + ' .filter tr').append($('<th>').append(select));
+					break;
+				default: 
+					// Text input
+					$('#' + id + ' .filter tr').append($('<th>').append($('<input type="text"/>').addClass('form-control input-sm')));
+					break;
 			}
-		} else {
+		else {
 			$('#' + id + ' .filter tr').append($('<th>'));
 		}
 	});
