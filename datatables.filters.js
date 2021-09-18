@@ -39,7 +39,9 @@ $.fn.dataTable.Api.register( 'filtersOn()', function () {
 			switch (searchtype) {
 				case "select":
 					// Select input
-					var select = $('<select></select>').addClass('form-control input-sm');
+					var select = $('<select data-live-search="true"></select>').addClass('form-control input-sm');
+					if (select.selectpicker)
+						select.addClass("selectpicker");
 					select.append('<option value=""></option>');
 					dataTable.column(index).data().unique().sort().each( function ( d, j ) {
 						select.append( '<option value="' + d + '">' + d + '</option>' )
@@ -126,7 +128,7 @@ $.fn.dataTable.ext.search.push(
 			if (colData)
 				colData = colData.toLowerCase();
 			
-			if (typeof(colFilter) == "object" ) {
+			if (typeof(colFilter) == "object") {
 				let isFound = false;
 				for (let filterIndex in colFilter) {
 					let filter = colFilter[filterIndex];
