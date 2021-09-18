@@ -60,18 +60,19 @@ $.fn.dataTable.Api.register( 'filtersOn()', function () {
     if (state) {
     	console.log("stateSave:true > Restoring filters...");
     	dataTable.columns().eq(0).each( function (index) {
-        var colSearch = state.columns[index].search;
-        if (colSearch.search) {
-        	// Restore input value
-        	$('#' + id + ' .filter input').get(index).value = colSearch.search;
-        }
-      });
+			var colSearch = state.columns[index].search;
+			if (colSearch.search) {
+				// Restore input value
+				$('#' + id + ' .filter input').get(index).value = colSearch.search;
+			}
+		});
     }
     
  	// Filter input event : filter matching column
 	$('#' + id +' .filter input, #' + id +' .filter select').each( function (index) {
 		$(this).on( 'keyup change', function () {
-			dataTable.column(index).search(this.value).draw();
+			dataTable.settings()[0].aoColumns[index].filterValue = $(this).val();
+			dataTable.column(index).search("").draw();
 		});
 	});
 	
@@ -100,3 +101,39 @@ $.fn.dataTable.Api.register( 'filtersClear()', function () {
 	}
 	
 });
+
+// Add custom search for filters
+$.fn.dataTable.ext.search.push(
+	function ( settings, data, dataIndex ) {
+		for (let colIndex in settings.aoColumns) {
+			let col = settings.aoColumns[colIndex];
+			let colFilter = col.filterValue;
+			let colData = data[colIndex];
+			
+			if (!colFilter)
+				continue;
+			
+			if (colData)
+				colData = colData.toLowerCase();
+			
+			if (typeof(colFilter) == "object" ) {
+				let isFound = false;
+				for (let filterIndex in colFilter) {
+					let filter = colFilter[filterIndex];
+					if (filter)
+						filter = filter.toLowerCase();
+					if (colData.indexOf(filter) != -1)
+						isFound = true;
+				}
+				if (!isFound)
+					return false;
+				continue;
+			}
+
+			colFilter = colFilter.toLowerCase();
+			if (colData.indexOf(colFilter) == -1)
+				return false;
+		}
+		return true;
+	}
+)
