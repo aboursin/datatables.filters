@@ -39,11 +39,21 @@ $.fn.dataTable.Api.register( 'filtersOn()', function () {
 			switch (searchtype) {
 				case "select":
 					// Select input
-					var select = $('<select><option value=""></option></select>').addClass('form-control input-sm');
+					var select = $('<select></select>').addClass('form-control input-sm');
+					select.append('<option value=""></option>');
 					dataTable.column(index).data().unique().sort().each( function ( d, j ) {
 						select.append( '<option value="' + d + '">' + d + '</option>' )
 					});
 					
+					$('#' + id + ' .filter tr').append($('<th>').append(select));
+					break;
+				case "multiselect":
+					// Multiselect input
+					var select = $('<select multiple data-live-search="true" data-actions-box="true"></select>').addClass('selectpicker');
+					dataTable.column(index).data().unique().sort().each( function ( d, j ) {
+						select.append( '<option value="' + d + '">' + d + '</option>' )
+					});
+
 					$('#' + id + ' .filter tr').append($('<th>').append(select));
 					break;
 				default: 
